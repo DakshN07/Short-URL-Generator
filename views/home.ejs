@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <style>
@@ -41,6 +41,178 @@
                         <td><%= url.shortId %></td>
                         <td><%= url.redirectURL %></td>
                         <td><%= url.visitHistory.length %></td> </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        <% } %>
+    </div>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+            background-color: #f4f6f8; /* Light gray background for a clean look */
+            color: #333; /* Dark gray text for readability */
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c8c45; /* Vibrant green for the main heading */
+        }
+
+        /* Form Styling */
+        form {
+            background-color: #ffffff; /* White form container for contrast */
+            padding: 20px;
+            border-radius: 8px; /* Rounded corners for modern design */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input {
+            padding: 10px;
+            margin-top: 5px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #2c8c45; /* Vibrant blue for the button */
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #2c8c45; /* Slightly darker blue on hover */
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #ffffff; /* White table background */
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            border: 1px solid #e0e0e0; /* Light gray borders */
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #2c8c45; /* Vibrant green for the header */
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9fbfc; /* Alternating light blue-gray rows */
+        }
+
+        tr:hover {
+            background-color: #eef3f9; /* Subtle highlight on row hover */
+        }
+
+        /* Links Styling */
+        a {
+            color: #1a73e8;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            form {
+                padding: 15px;
+            }
+
+            table {
+                font-size: 14px;
+            }
+
+            th, td {
+                padding: 8px;
+            }
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Shortener</title>
+</head>
+<body>
+    <h1>URL Shortener</h1>
+    <% if (locals.id) { %>
+        <p style="text-align: center;">URL Generated: 
+            <a href="http://localhost:8001/url/<%= id %>" target="_blank">
+                http://localhost:8001/url/<%= id %>
+            </a>
+        </p>
+    <% } %>
+    <div>
+        <form method="POST" action="/url">
+            <label for="url-input">
+                Enter your original URL
+                <input 
+                    id="url-input"
+                    type="text"
+                    name="url"
+                    placeholder="http://example.com"
+                    required
+                />
+            </label>
+            <button type="submit">Generate</button>
+        </form>
+    </div>
+    <div>
+        <% if (locals.urls) { %>
+            <table>
+                <thead>
+                    <tr>
+                        <th>S. No.</th>
+                        <th>ShortID</th>
+                        <th>Redirect</th>
+                        <th>Clicks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% urls.forEach((url, index) => { %>
+                        <tr>
+                            <td><%= index + 1 %></td>
+                            <td><%= url.shortId %></td>
+                            <td>
+                                <a href="<%= url.redirectURL %>" target="_blank">
+                                    <%= url.redirectURL %>
+                                </a>
+                            </td>
+                            <td><%= url.visitHistory.length %></td>
+                        </tr>
                     <% }) %>
                 </tbody>
             </table>
